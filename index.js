@@ -9,16 +9,30 @@ require('dotenv').config()
 
 const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.USER_PASS}@cluster0.mq9ya.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  if(err){
-      console.log('db not connected');
+
+
+async function run(){
+  try{
+    await client.connect();
+    const equipmentCollection = client.db("equipments").collection("equipment");
+    
+    //get products to mongodb
+    app.get('/products', async (req, res)=>{
+      const query = req.body;
+      const cursor = equipmentCollection.find(query);
+      const result = await cursor.toArray();
+
+      res.send(result);
+    })
+
   }
-  
-  console.log('db connected');
-  // perform actions on the collection object
-//   client.close();
-});
+  finally{
+    // await client.close();
+  }
+}
+run().catch(console.dir);
+
+
 
 
 app.get('/', (req, res) =>{

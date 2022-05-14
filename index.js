@@ -14,6 +14,7 @@ client.connect(err => {
   if(err){
       console.log('db not connected');
   }
+  
   console.log('db connected');
   // perform actions on the collection object
 //   client.close();

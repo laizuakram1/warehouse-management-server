@@ -33,7 +33,9 @@ async function run(){
     })
 
     //post data to mongodb
-    app.post('/porduct', async(req, res) =>{
+
+    // http://localhost:5000/product
+    app.post('/product', async(req, res) =>{
       const data = req.body;
       // const data = {name: "akram", text: "Hello"};
       const result = await equipmentCollection.insertOne(data);
@@ -57,6 +59,14 @@ async function run(){
       const result = await equipmentCollection.updateOne(filter, updateDoc, options);
       console.log('udate data');
       
+      res.send(result);
+    })
+
+    // delete data to mongodb
+    // http://localhost:5000/product
+    app.delete('/product',async(req,res) =>{
+      const query = req.body;
+      const result = await equipmentCollection.deleteOne(query);
       res.send(result);
     })
 

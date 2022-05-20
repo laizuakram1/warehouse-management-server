@@ -43,7 +43,6 @@ async function run(){
     })
 
     // udate data to mongodb
-
     // http://localhost:5000/product/6287386ad467649e6b2cee18
     app.put('/product/:id',async(req,res) =>{
       const data = req.body;

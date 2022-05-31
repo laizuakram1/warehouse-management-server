@@ -36,15 +36,15 @@ async function run(){
 
     // http://localhost:5000/product
     app.post('/product', async(req, res) =>{
-      const data = req.body;
+      const product = req.body;
       // const data = {name: "akram", text: "Hello"};
-      const result = await equipmentCollection.insertOne(data);
+      const result = await equipmentCollection.insertOne(product);
       console.log( `inseted id:${result.insertedId}`);
       
       res.send(result);
     })
 
-    // udate data to mongodb
+    // update data to mongodb
     // http://localhost:5000/product/6287386ad467649e6b2cee18
     app.put('/product/:id',async(req,res) =>{
       const data = req.body;

@@ -32,6 +32,14 @@ async function run(){
       res.send(result);
     })
 
+    app.get('/product/:id', async(req, res)=>{
+      const query = req.params.id;
+      const cursor = equipmentCollection.findOne(query);
+      const result = await cursor.toArray();
+
+      res.send(result);
+    })
+
     //post data to mongodb
 
     // http://localhost:5000/product

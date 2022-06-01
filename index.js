@@ -1,4 +1,9 @@
 const { MongoClient, ServerApiVersion,ObjectId } = require('mongodb');
+
+
+
+
+
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -32,13 +37,14 @@ async function run(){
       res.send(result);
     })
 
-    app.get('/product/:id', async(req, res)=>{
-      const query = req.params.id;
-      const cursor = equipmentCollection.findOne(query);
-      const result = await cursor.toArray();
+    // app.get('product/:id', async(req, res)=>{
+    //   const id = req.params.id;
+    //   const query = {_id:ObjectId(id)};
+    //   const cursor = equipmentCollection.findOne(query);
+    //   const result = await cursor.toArray();
 
-      res.send(result);
-    })
+    //   res.send(result);
+    // })
 
     //post data to mongodb
 

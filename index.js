@@ -1,9 +1,6 @@
 const { MongoClient, ServerApiVersion,ObjectId } = require('mongodb');
 
 
-
-
-
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -28,7 +25,7 @@ async function run(){
     
     //get products to mongodb
 
-    // http://localhost:5000/products
+    // https://pure-coast-15289.herokuapp.com/products
     app.get('/products', async (req, res)=>{
       const query = req.body;
       const cursor = equipmentCollection.find(query);
@@ -37,18 +34,10 @@ async function run(){
       res.send(result);
     })
 
-    // app.get('product/:id', async(req, res)=>{
-    //   const id = req.params.id;
-    //   const query = {_id:ObjectId(id)};
-    //   const cursor = equipmentCollection.findOne(query);
-    //   const result = await cursor.toArray();
-
-    //   res.send(result);
-    // })
 
     //post data to mongodb
 
-    // http://localhost:5000/product
+    // https://pure-coast-15289.herokuapp.com/product
     app.post('/product', async(req, res) =>{
       const product = req.body;
       // const data = {name: "akram", text: "Hello"};
@@ -59,15 +48,16 @@ async function run(){
     })
 
     // update data to mongodb
-    // http://localhost:5000/product/6287386ad467649e6b2cee18
+    // https://pure-coast-15289.herokuapp.com/product/6287386ad467649e6b2cee18
     app.put('/product/:id',async(req,res) =>{
       const data = req.body;
+      console.log(data);
       const id = req.params.id;
       const filter = {_id:ObjectId(id)};
       const options = { upsert: true };
       const updateDoc = {
         $set: {
-          ...data
+          quantity
         },
       };
       const result = await equipmentCollection.updateOne(filter, updateDoc, options);
@@ -77,7 +67,7 @@ async function run(){
     })
 
     // delete data to mongodb
-    // http://localhost:5000/product
+    // https://pure-coast-15289.herokuapp.com/product
     app.delete('/product',async(req,res) =>{
       const query = req.body;
       const result = await equipmentCollection.deleteOne(query);

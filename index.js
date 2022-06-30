@@ -50,26 +50,27 @@ async function run(){
     // update data to mongodb
     // https://pure-coast-15289.herokuapp.com/product/6287386ad467649e6b2cee18
     app.put('/product/:id',async(req,res) =>{
-      const data = req.body;
-      console.log(data);
       const id = req.params.id;
-      const filter = {_id:ObjectId(id)};
+      const data = req.body;
+      const filter = {_id: ObjectId(id)};
       const options = { upsert: true };
       const updateDoc = {
         $set: {
-          quantity
+            quantity:data.quantity
         },
       };
       const result = await equipmentCollection.updateOne(filter, updateDoc, options);
-      console.log('udate data');
+      console.log('update data');
       
       res.send(result);
     })
 
     // delete data to mongodb
     // https://pure-coast-15289.herokuapp.com/product
-    app.delete('/product',async(req,res) =>{
-      const query = req.body;
+    app.delete('/item/:id', async(req,res) =>{
+      const id = req.params.id;
+      console.log(id)
+      const query = {_id:ObjectId(id)}
       const result = await equipmentCollection.deleteOne(query);
       res.send(result);
     })

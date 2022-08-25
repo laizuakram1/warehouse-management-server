@@ -69,6 +69,16 @@ async function run() {
       res.send(result);
     })
 
+    // get single product
+    app.get('/equipment/:id', async(req, res) =>{
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await equipmentCollection.findOne(query);
+      
+
+      res.send(result);
+    })
+
 
     //post data to mongodb
     // https://pure-coast-15289.herokuapp.com/product
@@ -82,7 +92,7 @@ async function run() {
     })
 
     // update data to mongodb
-    // https://pure-coast-15289.herokuapp.com/product/6287386ad467649e6b2cee18
+    // /6287386ad467649e6b2cee18
     app.put('/product/:id', async (req, res) => {
       const id = req.params.id;
       const data = req.body;
@@ -95,6 +105,22 @@ async function run() {
       };
       const result = await equipmentCollection.updateOne(filter, updateDoc, options);
       console.log('update data');
+
+      res.send(result);
+    })
+
+    // update single quantity
+    app.put('/quantity/:id', async(req, res)=>{
+      const id = req.params.id;
+      const equipment = req.body;
+      const query = { _id: ObjectId(id)}
+      const options = { upsert: true };
+      const updateDoc = {
+        $set:{
+          quantity:equipment.quantity - 1
+        },
+      };
+      const result = await equipmentCollection.updateOne(query, updateDoc, options);
 
       res.send(result);
     })

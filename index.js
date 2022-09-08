@@ -22,6 +22,7 @@ async function run() {
   try {
     await client.connect();
     const equipmentCollection = client.db("equipments").collection("equipment");
+    const cartCollection = client.db("equipments").collection("cartItem");
     const userCollection = client.db("equipments").collection("users");
 
     //verify jwt 
@@ -77,6 +78,19 @@ async function run() {
       
 
       res.send(result);
+    })
+
+    //add cart items
+    app.post('/addProduct', async(req, res)=>{
+      const data = req.body;
+      if(!data){
+        return res.status(400).send('request body is empty')
+      }
+      const result = await cartCollection.insertOne(data);
+
+      res.send(result);
+
+     
     })
 
 

@@ -104,7 +104,6 @@ async function run() {
         },
       };
       const result = await equipmentCollection.updateOne(filter, updateDoc, options);
-      console.log('update data');
 
       res.send(result);
     })
